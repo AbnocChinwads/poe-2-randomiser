@@ -12,7 +12,7 @@
       </form>
       <div class="col">
         <p class="py-2">
-            <%= typeof player_class !== 'undefined' ? `You are a ${player_class}` : '' %>
+            <%= typeof player_class !== 'undefined' ? `You are a ${player_class.class_name}` : '' %>
         </p>
       </div>
     </div>
@@ -20,7 +20,7 @@
     The form display to allow you to randomly roll a skill of your chosen Tier level
       -->
     <div class="col-12 p-3 align-self-center">
-      <form action="/new" method="post">
+      <form action="/skill-choice" method="post">
         <p class="py-2">What tier skill gem do you want RNGesus to roll for you?</p>
         <select class="py-2" id="skill_tier" name="skill_tier">
           <option value="1">Tier 1</option>
@@ -35,8 +35,8 @@
         <button type="submit">Go ahead, make my build!</button>
         <div class="spacer"></div>
         <div class="col">
-          <p class="py-2">
-              <%= typeof skill_item !== 'undefined' ? `You have received: ${skill_item}` : '' %>
+          <p class="py-5">
+              <%= typeof skill !== 'undefined' ? `You have received: ${skill.skill_name}` : '' %>
           </p>
         </div>
       </form>

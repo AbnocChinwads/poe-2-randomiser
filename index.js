@@ -65,10 +65,9 @@ app.post("/player_class", async (req, res) => {
   const player_class = await getPlayerClasses();
   const randomChoice = player_class[Math.floor(Math.random() * player_class.length)]
   try {
-    res.redirect("/", {
+    res.render("index.ejs", {
         player_class: randomChoice,
     });
-    res.sendStatus(200);
     } catch (error) {
         console.error("Error rendering page:", error);
         res.status(500).send("Internal Server Error");
@@ -76,16 +75,15 @@ app.post("/player_class", async (req, res) => {
 });
 
 // Post request to randomly select a skill gem from the database based on tier selected
-app.post("/new", async (req, res) => {
+app.post("/skill-choice", async (req, res) => {
   const skill_tier = req.body.skill_tier;
   const skills = await getSkills();
-  const filteredSkills = skills.filter(skill => skill.tier == skill_tier);
+  const filteredSkills = skills.filter(skill => skill.skill_tier == skill_tier);
   const randomChoice = filteredSkills[Math.floor(Math.random() * filteredSkills.length)];
   try {
-    res.redirect("/", {
+    res.render("index.ejs", {
         skill: randomChoice,
     });
-    res.sendStatus(200);
     } catch (error) {
         console.error("Error rendering page:", error);
         res.status(500).send("Internal Server Error");
