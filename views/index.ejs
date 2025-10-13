@@ -1,48 +1,48 @@
 <%- include('partials/header.ejs'); -%>
 
-<div class="container-fluid p-5">
-  <div class="row align-items-center py-2 text-center">
-    <!-- The form display to allow you to randomly roll a class -->
-    <div class="col-12 py-3 align-self-center">
-      <form action="/player_class" method="post">
-        <button type="submit">Who will I be?</button>
-        <div class="spacer py-2"></div>
-        <p class="py-2">
-          <%= typeof player_class !== 'undefined' ? `You are a
-          ${player_class.class_name}` : 'Roll your class...' %>
-        </p>
-        <div class="spacer"></div>
-      </form>
-      <div class="col"></div>
-    </div>
-    <!-- 
+
+        <div class="align-items-center py-2 text-center">
+          <!-- The form display to allow you to randomly roll a class -->
+          <div class="py-3 align-self-center">
+            <form action="/player_class" method="post">
+              <button type="submit">Who will I be?</button>
+              <div class="spacer py-2"></div>
+              <p class="py-2">
+                <%= typeof player_class !== 'undefined' ? `You are a
+                ${player_class.class_name}` : 'Roll your class...' %>
+              </p>
+              <div class="spacer"></div>
+            </form>
+          </div>
+          <!-- 
     The form display to allow you to randomly roll a skill of your chosen Tier level
       -->
-    <div class="col-12 py-3 align-self-center">
-      <form action="/skill-choice" method="post">
-        <p class="py-2">
-          What tier skill gem do you want RNGesus to roll for you?
-        </p>
-        <select class="py-2" id="skill_tier" name="skill_tier">
-          <option value="1">Tier 1</option>
-          <option value="3">Tier 3</option>
-          <option value="5">Tier 5</option>
-          <option value="7">Tier 7</option>
-          <option value="9">Tier 9</option>
-          <option value="11">Tier 11</option>
-          <option value="13">Tier 13</option>
-        </select>
-        <div class="spacer py-3"></div>
-        <button type="submit">Go ahead, make my build!</button>
-        <div class="spacer"></div>
-        <div class="col">
-          <p class="py-5">
-            <%= typeof skill !== 'undefined' ? `RNGesus has chosen ${skill.skill_name} for you!` : '' %>
-          </p>
+          <div class="py-3 align-self-center">
+            <form action="/skill-choice" method="post">
+              <p class="py-2">
+                What tier skill gem do you want RNGesus to roll for you?
+              </p>
+              <select class="py-2" id="skill_tier" name="skill_tier">
+                <option value="1">Tier 1</option>
+                <option value="3">Tier 3</option>
+                <option value="5">Tier 5</option>
+                <option value="7">Tier 7</option>
+                <option value="9">Tier 9</option>
+                <option value="11">Tier 11</option>
+                <option value="13">Tier 13</option>
+              </select>
+              <div class="spacer py-3"></div>
+              <button type="submit">Go ahead, make my build!</button>
+              <div class="spacer"></div>
+              <div class="">
+                <p class="py-5">
+                  <%= typeof skill !== 'undefined' ? `RNGesus has chosen
+                  ${skill.skill_name} for you!` : '' %>
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
-    </div>
-  </div>
-</div>
+
 
 <%- include('partials/footer.ejs'); -%>
