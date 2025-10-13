@@ -9,7 +9,7 @@
               <div class="spacer py-2"></div>
               <p class="py-2">
                 <%- typeof player_class !== 'undefined' ? `You are a
-                <strong class="text-warning">${player_class.class_name}</strong>` : 'Roll your class...' %>
+                <br><strong class="text-warning">${player_class.class_name}</strong>` : 'Roll your class...' %>
               </p>
               <div class="spacer"></div>
             </form>
@@ -37,7 +37,7 @@
               <div class="">
                 <p class="py-5">
                   <%- typeof skill !== 'undefined' ? `RNGesus has chosen
-                  <strong class="text-warning">${skill.skill_name}</strong> for you!` : '' %>
+                  <br><strong class="text-warning">${skill.skill_name}</strong>!` : '' %>
                 </p>
               </div>
             </form>
