@@ -5,11 +5,11 @@
           <!-- The form display to allow you to randomly roll a class -->
           <div class="py-3 align-self-center">
             <form action="/player_class" method="post">
-              <button type="submit">Who will I be?</button>
+              <button class="btn btn-warning" type="submit">Who will I be?</button>
               <div class="spacer py-2"></div>
               <p class="py-2">
-                <%= typeof player_class !== 'undefined' ? `You are a
-                ${player_class.class_name}` : 'Roll your class...' %>
+                <%- typeof player_class !== 'undefined' ? `You are a
+                <strong class="text-warning">${player_class.class_name}</strong>` : 'Roll your class...' %>
               </p>
               <div class="spacer"></div>
             </form>
@@ -32,12 +32,12 @@
                 <option value="13">Tier 13</option>
               </select>
               <div class="spacer py-3"></div>
-              <button type="submit">Go ahead, make my build!</button>
+              <button class="btn btn-success" type="submit">Go ahead, make my build!</button>
               <div class="spacer"></div>
               <div class="">
                 <p class="py-5">
-                  <%= typeof skill !== 'undefined' ? `RNGesus has chosen
-                  ${skill.skill_name} for you!` : '' %>
+                  <%- typeof skill !== 'undefined' ? `RNGesus has chosen
+                  <strong class="text-warning">${skill.skill_name}</strong> for you!` : '' %>
                 </p>
               </div>
             </form>
