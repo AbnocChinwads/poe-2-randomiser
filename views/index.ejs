@@ -10,6 +10,11 @@
         <button type="submit">Who will I be?</button>
         <div class="spacer"></div>
       </form>
+      <div class="col">
+        <p class="py-2">
+            <%= typeof player_class !== 'undefined' ? `You are a ${player_class}` : '' %>
+        </p>
+      </div>
     </div>
     <!-- 
     The form display to allow you to randomly roll a skill of your chosen Tier level
@@ -29,6 +34,11 @@
         <div class="spacer py-3"></div>
         <button type="submit">Go ahead, make my build!</button>
         <div class="spacer"></div>
+        <div class="col">
+          <p class="py-2">
+              <%= typeof skill_item !== 'undefined' ? `You have received: ${skill_item}` : '' %>
+          </p>
+        </div>
       </form>
     </div>
   </div>
