@@ -1,0 +1,29 @@
+<%- include('partials/header.ejs'); -%>
+    
+<!-- These are just placeholder functions, to show connectivity to the database
+    along with rendering the data to the webpage -->
+    
+    <div class="container-fluid p-5">
+        <div class="row">
+            <!-- Display a list of class choices -->
+            <% classList.forEach(function(player_class) { %>
+                <div class="col-2 py-2" id="<%= player_class.id %>">
+                    <p class="col-6 py-2 ps-2"># <%= player_class.id %>: <%= player_class.class_name %></p>
+                </div>
+                <% }) %>
+        </div>
+        <div class="row">
+            <!-- Display a list of skill gems -->
+            <% skillItems.forEach(function(skill) { %>
+                <!-- filtered to tier 1 skills -->
+                <% if (skill.skill_tier == "1") { %>
+                    <div class="col-2 py-2" id="<%= skill.id %>">
+                        <p>Tier: <%= skill.skill_tier %></p>
+                        <p class="col-6 py-2 ps-2"><%= skill.skill_name %></p>
+                    </div>
+                <% } %>
+            <% }) %>
+        </div>
+    </div>
+
+<%- include('partials/footer.ejs'); -%>

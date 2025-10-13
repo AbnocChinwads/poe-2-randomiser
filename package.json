@@ -1,0 +1,20 @@
+{
+  "name": "poe-2-randomiser",
+  "version": "1.0.0",
+  "description": "A Path Of Exile 2 randomiser to choose your class and skill gems for you when you don't want to make those decisions yourself",
+  "license": "ISC",
+  "author": "Abnoc Chinwads",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^1.12.2",
+    "body-parser": "^2.2.0",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "pg": "^8.16.3"
+  }
+}
