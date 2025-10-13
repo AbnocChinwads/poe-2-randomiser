@@ -5,7 +5,7 @@
           <!-- The form display to allow you to randomly roll a class -->
           <div class="py-3 align-self-center">
             <form action="/player_class" method="post">
-              <button class="btn btn-warning" type="submit">Who will I be?</button>
+              <button class="btn btn-warning" type="submit">Who will you be?</button>
               <div class="spacer py-2"></div>
               <p class="py-2">
                 <%- typeof player_class !== 'undefined' ? `You are a
@@ -22,7 +22,7 @@
               <p class="py-2">
                 What tier skill gem do you want RNGesus to roll for you?
               </p>
-              <select class="py-2" id="skill_tier" name="skill_tier">
+              <select class="p-3 bg-secondary" id="skill_tier" name="skill_tier">
                 <option value="1">Tier 1</option>
                 <option value="3">Tier 3</option>
                 <option value="5">Tier 5</option>

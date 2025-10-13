@@ -27,8 +27,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // Allows us to pass webpage
 app.use(express.static("public")); // Allows use of static files with expressjs
 
 /*
-  This is the function to pull all the information from the server
-  and push it to a list that the ejs files can read from to display
+  These are the functions to pull all the information from the server
+  and push it to lists that the ejs files can read from to display
   it for us
 */
 

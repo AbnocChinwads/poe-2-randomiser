@@ -1,0 +1,7 @@
+main {
+    display: block;
+    background-image: url("https://cdn2.steamgriddb.com/logo_thumb/0993606e636f639fefc43e8c6bdf6560.png"), url("https://cdn2.steamgriddb.com/logo_thumb/0993606e636f639fefc43e8c6bdf6560.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left, right;
+}
