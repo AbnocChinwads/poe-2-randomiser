@@ -1,29 +1,37 @@
 <%- include('partials/header.ejs'); -%>
-    
-<!-- These are just placeholder functions, to show connectivity to the database
-    along with rendering the data to the webpage -->
-    
-    <div class="container-fluid p-5">
-        <div class="row">
-            <!-- Display a list of class choices -->
-            <% classList.forEach(function(player_class) { %>
-                <div class="col-2 py-2" id="<%= player_class.id %>">
-                    <p class="col-6 py-2 ps-2"># <%= player_class.id %>: <%= player_class.class_name %></p>
-                </div>
-                <% }) %>
-        </div>
-        <div class="row">
-            <!-- Display a list of skill gems -->
-            <% skillItems.forEach(function(skill) { %>
-                <!-- filtered to tier 1 skills -->
-                <% if (skill.skill_tier == "1") { %>
-                    <div class="col-2 py-2" id="<%= skill.id %>">
-                        <p>Tier: <%= skill.skill_tier %></p>
-                        <p class="col-6 py-2 ps-2"><%= skill.skill_name %></p>
-                    </div>
-                <% } %>
-            <% }) %>
-        </div>
+
+<div class="container-fluid p-5">
+  <div class="row align-items-center py-2 text-center">
+    <!-- The form display to allow you to randomly roll a class -->
+    <div class="col-12 p-3 align-self-center">
+      <form action="/player_class" method="post">
+        <p class="py-2">Roll your class...</p>
+        <div class="spacer"></div>
+        <button type="submit">Who will I be?</button>
+        <div class="spacer"></div>
+      </form>
     </div>
+    <!-- 
+    The form display to allow you to randomly roll a skill of your chosen Tier level
+      -->
+    <div class="col-12 p-3 align-self-center">
+      <form action="/new" method="post">
+        <p class="py-2">What tier skill gem do you want RNGesus to roll for you?</p>
+        <select class="py-2" id="skill_tier" name="skill_tier">
+          <option value="1">Tier 1</option>
+          <option value="3">Tier 3</option>
+          <option value="5">Tier 5</option>
+          <option value="7">Tier 7</option>
+          <option value="9">Tier 9</option>
+          <option value="11">Tier 11</option>
+          <option value="13">Tier 13</option>
+        </select>
+        <div class="spacer py-3"></div>
+        <button type="submit">Go ahead, make my build!</button>
+        <div class="spacer"></div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <%- include('partials/footer.ejs'); -%>
