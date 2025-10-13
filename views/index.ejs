@@ -3,25 +3,26 @@
 <div class="container-fluid p-5">
   <div class="row align-items-center py-2 text-center">
     <!-- The form display to allow you to randomly roll a class -->
-    <div class="col-12 p-3 align-self-center">
+    <div class="col-12 py-3 align-self-center">
       <form action="/player_class" method="post">
-        <p class="py-2">Roll your class...</p>
-        <div class="spacer"></div>
         <button type="submit">Who will I be?</button>
+        <div class="spacer py-2"></div>
+        <p class="py-2">
+          <%= typeof player_class !== 'undefined' ? `You are a
+          ${player_class.class_name}` : 'Roll your class...' %>
+        </p>
         <div class="spacer"></div>
       </form>
-      <div class="col">
-        <p class="py-2">
-            <%= typeof player_class !== 'undefined' ? `You are a ${player_class.class_name}` : '' %>
-        </p>
-      </div>
+      <div class="col"></div>
     </div>
     <!-- 
     The form display to allow you to randomly roll a skill of your chosen Tier level
       -->
-    <div class="col-12 p-3 align-self-center">
+    <div class="col-12 py-3 align-self-center">
       <form action="/skill-choice" method="post">
-        <p class="py-2">What tier skill gem do you want RNGesus to roll for you?</p>
+        <p class="py-2">
+          What tier skill gem do you want RNGesus to roll for you?
+        </p>
         <select class="py-2" id="skill_tier" name="skill_tier">
           <option value="1">Tier 1</option>
           <option value="3">Tier 3</option>
@@ -36,7 +37,7 @@
         <div class="spacer"></div>
         <div class="col">
           <p class="py-5">
-              <%= typeof skill !== 'undefined' ? `You have received: ${skill.skill_name}` : '' %>
+            <%= typeof skill !== 'undefined' ? `RNGesus has chosen ${skill.skill_name} for you!` : '' %>
           </p>
         </div>
       </form>
