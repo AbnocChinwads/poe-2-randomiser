@@ -1,11 +1,10 @@
 import "dotenv/config";
 import express from "express";
-import fs from 'fs';
+import fs from "fs";
 import bodyParser from "body-parser";
 import pg from "pg";
 
 const app = express();
-const fs = require('fs');
 
 // Init Database
 
