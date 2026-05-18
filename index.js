@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import pg from "pg";
 
 const app = express();
+const fs = require('fs');
 
 // Init Database
 
@@ -11,7 +12,7 @@ const db = new pg.Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
+  password: fs.readFileSync('/run/secrets/poe2_db_password', 'utf8').trim(),
 });
 try {
   db.connect();
