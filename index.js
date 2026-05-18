@@ -4,16 +4,14 @@ import bodyParser from "body-parser";
 import pg from "pg";
 
 const app = express();
-const port = process.env.APP_PORT;
 
 // Init Database
 
-const db = new pg.Client({
+const db = new pg.Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
 });
 try {
   db.connect();
@@ -90,6 +88,4 @@ app.post("/skill-choice", async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+app.listen(3000);
