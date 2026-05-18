@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import fs from 'fs';
 import bodyParser from "body-parser";
 import pg from "pg";
 
