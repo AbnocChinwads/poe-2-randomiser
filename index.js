@@ -15,15 +15,24 @@ const db = new pg.Pool({
   password: fs.readFileSync('/run/secrets/poe2_db_password', 'utf8').trim(),
 });
 try {
-  db.connect();
+  await db.query("SELECT 1");
   console.log("Database connected successfully.");
 } catch (err) {
-  console.error("Database connection error:", err.stack);
-  process.exit(1); // Exit the application if the database connection fails
+  console.error("Database connection error:", err);
+  process.exit(1);
 }
 
 app.use(bodyParser.urlencoded({ extended: true })); // Allows us to pass webpage information to the server
 app.use(express.static("public")); // Allows use of static files with expressjs
+
+app.get("/health", async (req, res) => {
+  try {
+    await db.query("SELECT 1");
+    res.status(200).json({ status: "ok", db: "connected" });
+  } catch (err) {
+    res.status(500).json({ status: "error", db: "down" });
+  }
+});
 
 /*
   These are the functions to pull all the information from the server
