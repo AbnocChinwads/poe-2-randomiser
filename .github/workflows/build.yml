@@ -29,3 +29,16 @@ jobs:
         run: |
           docker push ghcr.io/abnocchinwads/poe-2-randomiser:main
           docker push ghcr.io/abnocchinwads/poe-2-randomiser:${{ github.sha }}
+
+      - name: Deploy to server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /opt/apps
+
+            sed -i "s/^POE2_VERSION=.*/POE2_VERSION=${{ github.sha }}/" .env
+
+            ./deploy.sh
