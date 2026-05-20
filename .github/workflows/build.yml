@@ -19,7 +19,13 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build image
-        run: docker build -t ghcr.io/abnocchinwads/poe-2-randomiser:latest .
+        run: |
+          docker build \
+            -t ghcr.io/abnocchinwads/poe-2-randomiser:main \
+            -t ghcr.io/abnocchinwads/poe-2-randomiser:${{ github.sha }} \
+            .
 
       - name: Push image
-        run: docker push ghcr.io/abnocchinwads/poe-2-randomiser:latest
+        run: |
+          docker push ghcr.io/abnocchinwads/poe-2-randomiser:main
+          docker push ghcr.io/abnocchinwads/poe-2-randomiser:${{ github.sha }}
