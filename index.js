@@ -35,7 +35,7 @@ async function initDb() {
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
-    password: fs.readFileSync('/run/secrets/poe2_db_password', 'utf8').trim(),
+    password: process.env.DB_PASSWORD,
   });
 
   await db.query("SELECT 1");
