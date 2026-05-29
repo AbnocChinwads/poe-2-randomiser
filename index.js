@@ -6,33 +6,41 @@ import pg from "pg";
 
 const app = express();
 
-// Init Database
-
-const db = new pg.Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: fs.readFileSync('/run/secrets/poe2_db_password', 'utf8').trim(),
-});
-try {
-  await db.query("SELECT 1");
-  console.log("Database connected successfully.");
-} catch (err) {
-  console.error("Database connection error:", err);
-  process.exit(1);
-}
+let isReady = false;
+let db;
 
 app.use(bodyParser.urlencoded({ extended: true })); // Allows us to pass webpage information to the server
 app.use(express.static("public")); // Allows use of static files with expressjs
 
 app.get("/health", async (req, res) => {
-  try {
-    await db.query("SELECT 1");
-    res.status(200).json({ status: "ok", db: "connected" });
-  } catch (err) {
-    res.status(500).json({ status: "error", db: "down" });
-  }
+    res.status(200).json({ ok: true, });
 });
+
+app.get("/ready", (req, res) => {
+  if (!isReady) {
+    return res.status(503).json({
+      ready: false,
+    });
+  }
+
+  res.status(200).json({
+    ready: true,
+  });
+});
+
+// Init Database
+
+async function initDb() {
+  db = new pg.Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: fs.readFileSync('/run/secrets/poe2_db_password', 'utf8').trim(),
+  });
+
+  await db.query("SELECT 1");
+  console.log("Database connected successfully.")
+}
 
 /*
   These are the functions to pull all the information from the server
@@ -98,4 +106,26 @@ app.post("/skill-choice", async (req, res) => {
     }
 });
 
-app.listen(3000);
+async function start() {
+  try {
+    console.log("Starting service...");
+
+    console.log("Connecting database...");
+    await initDb();
+
+    console.log("Running startup tasks...");
+
+    isReady = true;
+
+    console.log("Service ready.");
+
+    app.listen(3000, () => {
+      console.log("Server listening on port 3000");
+    });
+  } catch (err){
+    console.error("Startup failure: ", err);
+    process.exit(1);
+  }
+}
+
+start();

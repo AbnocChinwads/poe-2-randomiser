@@ -1,4 +1,4 @@
-name: Build and Publish Image
+name: Build & Deploy Trigger
 
 on:
   push:
@@ -19,29 +19,31 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ secrets.GHCR_USER }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & Push
         run: |
           OWNER="abnocchinwads"
-          REPO="poe-2-randomiser"
-
-          IMAGE="ghcr.io/${OWNER}/${REPO}:${GITHUB_SHA}"
-          IMAGE=$(echo "$IMAGE" | tr '[:upper:]' '[:lower:]')
+          IMAGE="ghcr.io/$OWNER/poe-2-randomiser:${GITHUB_SHA}"
 
           docker build -t $IMAGE .
           docker push $IMAGE
 
+  dispatch:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Trigger deploy
         run: |
           curl -X POST https://api.github.com/repos/abnocchinwads/home-server/dispatches \
-          -H "Authorization: Bearer ${{ secrets.HOME_SERVER_TOKEN }}" \
-          -H "Accept: application/vnd.github+json" \
-          -d "{
-            \"event_type\": \"service-updated\",
-            \"client_payload\": {
-              \"service\": \"poe2\",
-              \"sha\": \"${GITHUB_SHA}\"
-            }
-          }"
+            -H "Authorization: Bearer ${{ secrets.HOME_SERVER_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -d '{
+              "event_type": "service-updated",
+              "client_payload": {
+                "service": "poe2",
+                "sha": "${{ github.sha }}"
+              }
+            }'
