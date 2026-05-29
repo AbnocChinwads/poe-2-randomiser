@@ -1,8 +1,8 @@
-name: Build + Push + Dispatch
+name: Build and Publish Image
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -15,23 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ---- CI GUARD (portable) ----
-      - name: Validate CI contract
-        run: |
-          set -euo pipefail
-
-          OWNER="abnocchinwads"
-          REPO="${{ github.event.repository.name }}"
-          SHA="${{ github.sha }}"
-
-          if [ -z "$SHA" ]; then
-            echo "Missing SHA"
-            exit 1
-          fi
-
-          echo "CI OK"
-
-      # ---- LOGIN ----
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -39,25 +22,26 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # ---- BUILD + PUSH ----
-      - name: Build image
+      - name: Build & Push
         run: |
           OWNER="abnocchinwads"
-          REPO="${{ github.event.repository.name }}"
-          IMAGE="ghcr.io/${OWNER}/${REPO}:${{ github.sha }}"
+          REPO="poe-2-randomiser"
+
+          IMAGE="ghcr.io/${OWNER}/${REPO}:${GITHUB_SHA}"
+          IMAGE=$(echo "$IMAGE" | tr '[:upper:]' '[:lower:]')
 
           docker build -t $IMAGE .
           docker push $IMAGE
 
-      # ---- DISPATCH ----
       - name: Trigger deploy
         run: |
           curl -X POST https://api.github.com/repos/abnocchinwads/home-server/dispatches \
           -H "Authorization: Bearer ${{ secrets.HOME_SERVER_TOKEN }}" \
           -H "Accept: application/vnd.github+json" \
-          -d '{
-            "event_type": "poe2-updated",
-            "client_payload": {
-              "poe2_sha": "'"${{ github.sha }}"'"
+          -d "{
+            \"event_type\": \"service-updated\",
+            \"client_payload\": {
+              \"service\": \"poe2\",
+              \"sha\": \"${GITHUB_SHA}\"
             }
-          }'
+          }"
